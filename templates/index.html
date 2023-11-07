@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <title>Mastery List</title>
+    </head>
+    <body>
+      <!--goofy navbar-->
+        <nav class="navbar bg-white">
+            <div class="container-fluid px-5 justify-content-end">
+              <a class="navbar-brand">
+                <img src="/static/paulvu.png" alt="Bootstrap" width="20%">
+              </a>
+            </div>
+          </nav>
+
+          <div class="container text-center my-5">
+            <h1 class="display-1">MASTERY LIST</h1>
+          </div>
+
+          <div class="container">
+            <h1 class="display-6 text-center my-4">ADD TASK</h1>
+              <form action="/add" method="post" class="input-group mb-5" >
+                <input type="text" autocomplete="off" class="form-control input-sm" placeholder="Task Name" name="task"/>
+                <span class="input-group-btn" style="width:0px;"></span>
+                <input type="text" autocomplete="off" class="form-control input-sm" placeholder="Ease (1-10)" style="margin-left:-1px" name="ease"/>
+                <span class="input-group-btn" style="width:0px;"></span>
+                <input type="text" autocomplete="off" class="form-control input-sm" placeholder="Importance (1-10)" style="margin-left:-2px" name="importance"/>
+                <input type="submit" class="btn btn-outline-secondary">
+              </form>
+
+            <div class="table-responsive-sm">
+              <table class="table table-bordered table-hover">
+                <tr>
+                  <th class="col-1"></th>
+                  <th class="col">TASK</th>
+                  <th class="col-1">EASE</th>
+                  <th class="col-1">IMPORTANCE</th>
+                  <th class="col-2">PRIORITY SCORE</th>
+                  <th class="col-1"></th>
+                </tr>
+
+                {% for row in mastery_list %}
+                <tr>
+                  <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="width: 60px; height: 20px;"></td>
+                  <td>{{ row.task }}</td>
+                  <td>{{row.ease }}</td>
+                  <td>{{ row.importance }}</td>
+                  <td>{{ row.ease + row.importance }}</td>
+                  <td>
+                    <form action="/delete" method="post">
+                      <button name="delete" value= "{{ row.task }}" type="submit" class="btn btn-outline-danger">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </table>
+
+            </div>
+          </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    </body>
+</html>
